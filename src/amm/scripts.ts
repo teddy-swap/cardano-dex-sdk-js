@@ -15,10 +15,10 @@ export const OrderAddrsV1Testnet: OrderAddrs = {
 }
 
 export const OrderAddrsV1Mainnet: OrderAddrs = {
-  ammDeposit: "addr1wyr4uz0tp75fu8wrg6gm83t20aphuc9vt6n8kvu09ctkugqpsrmeh",
-  ammRedeem: "addr1wxpa5704x8qel88ympf4natfdzn59nc9esj7609y3sczmmsasees8",
-  ammSwap: "addr1wynp362vmvr8jtc946d3a3utqgclfdl5y9d3kn849e359hsskr20n",
-  ammPool: "addr1wx3937ykmlcaqxkf4z7stxpsfwfn4re7ncy48yu8vutcpxgg67me2"
+  ammDeposit: "addr_test1wqx8pkqywyu3qd2x7rnk4tlvlhcxvl9m897gjah5pt50evc2v3m47",
+  ammRedeem: "addr_test1wz4ktrt9k4chhurm6wc6ntfg6vwpswq3hwjqw6h2e607hrswlvszv",
+  ammSwap: "addr_test1wp9tz7hungv6furtdl3zn72sree86wtghlcr4jc637r2eagcksy0g",
+  ammPool: "addr_test1wq5th50h46anh3v7zdvh7ve6amac7k4h3mdfvt0p6czm8zq7k79xv"
 }
 
 export type ScriptCreds = {
@@ -75,15 +75,15 @@ export const datumRewardPKHIndex: DatumRewardPKHIndex = {
 
 export const OpInRefsMainnetV1: OpInRefs = {
   ammSwap: {
-    opInRefHash: 'fc9e99fd12a13a137725da61e57a410e36747d513b965993d92c32c67df9259a',
+    opInRefHash: 'b2f79375bf73234bb988cfdb911c78ac4e9b5470197e828d507babfdcca08d16',
     opInRefIndex: 2
   },
   ammDeposit: {
-    opInRefHash: 'fc9e99fd12a13a137725da61e57a410e36747d513b965993d92c32c67df9259a',
-    opInRefIndex: 0
+    opInRefHash: 'b2f79375bf73234bb988cfdb911c78ac4e9b5470197e828d507babfdcca08d16',
+    opInRefIndex: 3
   },
   ammRedeem: {
-    opInRefHash: 'fc9e99fd12a13a137725da61e57a410e36747d513b965993d92c32c67df9259a',
+    opInRefHash: 'b2f79375bf73234bb988cfdb911c78ac4e9b5470197e828d507babfdcca08d16',
     opInRefIndex: 1
   }
 }
