@@ -1,4 +1,4 @@
-import {HexString, TxHash} from "../cardano/types"
+import { HexString, TxHash } from "../cardano/types"
 
 export type OrderAddrs = {
   ammDeposit: HexString
@@ -54,16 +54,16 @@ export type DatumRewardPKHIndex = {
 
 export const OpInRefsPreviewV1: OpInRefs = {
   ammSwap: {
-    opInRefHash: 'b2f79375bf73234bb988cfdb911c78ac4e9b5470197e828d507babfdcca08d16',
-    opInRefIndex: 2
+    opInRefHash: '81bdfd89f3c8ff1a23dbe70af2db399ad0ed028b36a41974662a2cf8cda3c7c3',
+    opInRefIndex: 0
   },
   ammDeposit: {
-    opInRefHash: 'b2f79375bf73234bb988cfdb911c78ac4e9b5470197e828d507babfdcca08d16',
-    opInRefIndex: 3
+    opInRefHash: '77186dc10826227acd5e4a48e636bd3b11d5f39cc051d794540a7125903e157c',
+    opInRefIndex: 0
   },
   ammRedeem: {
-    opInRefHash: 'b2f79375bf73234bb988cfdb911c78ac4e9b5470197e828d507babfdcca08d16',
-    opInRefIndex: 1
+    opInRefHash: '2266866d4d85cd582a34d27638a6eeb885cc4fb96fee230c86720e1f3f9eb0a0',
+    opInRefIndex: 0
   }
 }
 
@@ -75,15 +75,15 @@ export const datumRewardPKHIndex: DatumRewardPKHIndex = {
 
 export const OpInRefsMainnetV1: OpInRefs = {
   ammSwap: {
-    opInRefHash: 'b2f79375bf73234bb988cfdb911c78ac4e9b5470197e828d507babfdcca08d16',
-    opInRefIndex: 2
+    opInRefHash: '81bdfd89f3c8ff1a23dbe70af2db399ad0ed028b36a41974662a2cf8cda3c7c3',
+    opInRefIndex: 0
   },
   ammDeposit: {
-    opInRefHash: 'b2f79375bf73234bb988cfdb911c78ac4e9b5470197e828d507babfdcca08d16',
-    opInRefIndex: 3
+    opInRefHash: '77186dc10826227acd5e4a48e636bd3b11d5f39cc051d794540a7125903e157c',
+    opInRefIndex: 0
   },
   ammRedeem: {
-    opInRefHash: 'b2f79375bf73234bb988cfdb911c78ac4e9b5470197e828d507babfdcca08d16',
-    opInRefIndex: 1
+    opInRefHash: '2266866d4d85cd582a34d27638a6eeb885cc4fb96fee230c86720e1f3f9eb0a0',
+    opInRefIndex: 0
   }
 }
