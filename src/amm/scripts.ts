@@ -8,17 +8,17 @@ export type OrderAddrs = {
 }
 
 export const OrderAddrsV1Testnet: OrderAddrs = {
-  ammDeposit: "addr_test1wqx8pkqywyu3qd2x7rnk4tlvlhcxvl9m897gjah5pt50evc2v3m47",
-  ammRedeem: "addr_test1wz4ktrt9k4chhurm6wc6ntfg6vwpswq3hwjqw6h2e607hrswlvszv",
-  ammSwap: "addr_test1wp9tz7hungv6furtdl3zn72sree86wtghlcr4jc637r2eagcksy0g",
-  ammPool: "addr_test1wq5th50h46anh3v7zdvh7ve6amac7k4h3mdfvt0p6czm8zq7k79xv"
+  ammDeposit: "addr_test1zqx8pkqywyu3qd2x7rnk4tlvlhcxvl9m897gjah5pt50evumcwxf9p2t3jk4cnp97nkt2vg30nvfku5umf686kqx054q546z3w",
+  ammRedeem: "addr_test1zz4ktrt9k4chhurm6wc6ntfg6vwpswq3hwjqw6h2e607hr5mcwxf9p2t3jk4cnp97nkt2vg30nvfku5umf686kqx054q643cyh",
+  ammSwap: "addr_test1zp9tz7hungv6furtdl3zn72sree86wtghlcr4jc637r2eavmcwxf9p2t3jk4cnp97nkt2vg30nvfku5umf686kqx054qpf03fa",
+  ammPool: "addr_test1zq5th50h46anh3v7zdvh7ve6amac7k4h3mdfvt0p6czm8zymcwxf9p2t3jk4cnp97nkt2vg30nvfku5umf686kqx054qgl8mja"
 }
 
 export const OrderAddrsV1Mainnet: OrderAddrs = {
-  ammDeposit: "addr_test1wqx8pkqywyu3qd2x7rnk4tlvlhcxvl9m897gjah5pt50evc2v3m47",
-  ammRedeem: "addr_test1wz4ktrt9k4chhurm6wc6ntfg6vwpswq3hwjqw6h2e607hrswlvszv",
-  ammSwap: "addr_test1wp9tz7hungv6furtdl3zn72sree86wtghlcr4jc637r2eagcksy0g",
-  ammPool: "addr_test1wq5th50h46anh3v7zdvh7ve6amac7k4h3mdfvt0p6czm8zq7k79xv"
+  ammDeposit: "addr_test1zqx8pkqywyu3qd2x7rnk4tlvlhcxvl9m897gjah5pt50evumcwxf9p2t3jk4cnp97nkt2vg30nvfku5umf686kqx054q546z3w",
+  ammRedeem: "addr_test1zz4ktrt9k4chhurm6wc6ntfg6vwpswq3hwjqw6h2e607hr5mcwxf9p2t3jk4cnp97nkt2vg30nvfku5umf686kqx054q643cyh",
+  ammSwap: "addr_test1zp9tz7hungv6furtdl3zn72sree86wtghlcr4jc637r2eavmcwxf9p2t3jk4cnp97nkt2vg30nvfku5umf686kqx054qpf03fa",
+  ammPool: "addr_test1zq5th50h46anh3v7zdvh7ve6amac7k4h3mdfvt0p6czm8zymcwxf9p2t3jk4cnp97nkt2vg30nvfku5umf686kqx054qgl8mja"
 }
 
 export type ScriptCreds = {
