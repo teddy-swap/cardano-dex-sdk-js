@@ -152,13 +152,13 @@ export class RefundTxBuilder {
         return this.refund(params, currentTry + 1, newBestTxData, txFee)
       }
     } catch (e) {
-      console.warn(e, typeof e, FEE_REGEX.test(e))
+      console.warn(e, typeof e, FEE_REGEX.test(e as string))
 
       if (typeof e === "string" && FEE_REGEX.test(e)) {
         console.log(e, "fee_regex")
         return this.refund(params, currentTry + 1, bestTransaction, this.getFeeFromError(e))
       }
-      return [refundTxCandidate, null, e]
+      return [refundTxCandidate, null, e as Error]
     }
   }
 

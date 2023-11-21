@@ -113,3 +113,5 @@ export {
   fromWasmUtxo,
   decodeWasmUtxo
 } from "./interop/serlib"
+
+export { SendLovelaceTxBuilder, SendLovelaceParams } from "./amm/interpreters/ammTxBuilder/sendLovelaceTxBuilder";

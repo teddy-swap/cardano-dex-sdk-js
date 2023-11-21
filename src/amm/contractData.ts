@@ -224,5 +224,5 @@ export function parseAssetClass(pd: PlutusData): AssetClass | undefined {
 }
 
 function parseInteger(pd: PlutusData): bigint | undefined {
-  return BigInt(pd.as_integer()?.to_str())
+  return BigInt(pd.as_integer()?.to_str() as string)
 }

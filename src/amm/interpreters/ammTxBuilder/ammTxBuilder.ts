@@ -1,17 +1,18 @@
-import {Transaction} from "@emurgo/cardano-serialization-lib-nodejs"
-import {TxCandidate} from "../../../cardano/entities/tx"
-import {InputCollector, InputSelector} from "../../../cardano/wallet/inputSelector"
-import {TxAsm} from "../../../cardano/wallet/txAsm"
-import {TxMath} from "../../../cardano/wallet/txMath"
-import {CardanoWasm} from "../../../utils/rustLoader"
-import {AmmActions} from "../ammActions"
-import {AmmOutputs} from "../ammOutputs"
-import {DepositAmmTxBuilder, DepositParams, DepositTxInfo} from "./depositAmmTxBuilder"
-import {PoolCreationParams, PoolCreationTxBuilder, PoolCreationTxInfo} from "./poolCreationTxBuilder";
-import {RedeemAmmTxBuilder, RedeemParams, RedeemTxInfo} from "./redeemAmmTxBuilder"
-import {SwapAmmTxBuilder, SwapParams, SwapTxInfo} from "./swapAmmTxBuilder"
-import {FullTxIn} from "../../../cardano/entities/txIn"
-import {CollateralSelector} from "../../../cardano/wallet/collateralSelector"
+import { Transaction } from "@emurgo/cardano-serialization-lib-nodejs"
+import { TxCandidate } from "../../../cardano/entities/tx"
+import { FullTxIn } from "../../../cardano/entities/txIn"
+import { CollateralSelector } from "../../../cardano/wallet/collateralSelector"
+import { InputCollector, InputSelector } from "../../../cardano/wallet/inputSelector"
+import { TxAsm } from "../../../cardano/wallet/txAsm"
+import { TxMath } from "../../../cardano/wallet/txMath"
+import { CardanoWasm } from "../../../utils/rustLoader"
+import { AmmActions } from "../ammActions"
+import { AmmOutputs } from "../ammOutputs"
+import { DepositAmmTxBuilder, DepositParams, DepositTxInfo } from "./depositAmmTxBuilder"
+import { PoolCreationParams, PoolCreationTxBuilder, PoolCreationTxInfo } from "./poolCreationTxBuilder";
+import { RedeemAmmTxBuilder, RedeemParams, RedeemTxInfo } from "./redeemAmmTxBuilder"
+import { SendLovelaceParams, SendLovelaceTxBuilder } from "./sendLovelaceTxBuilder"
+import { SwapAmmTxBuilder, SwapParams, SwapTxInfo } from "./swapAmmTxBuilder"
 
 export interface AmmTxBuilder {
   swap(params: SwapParams): Promise<[Transaction | null, TxCandidate, SwapTxInfo, Error | null]>;
@@ -21,6 +22,8 @@ export interface AmmTxBuilder {
   deposit(params: DepositParams): Promise<[Transaction | null, TxCandidate, DepositTxInfo, Error | null]>;
 
   poolCreation(params: PoolCreationParams): Promise<[Transaction | null, TxCandidate, PoolCreationTxInfo, Error | null]>;
+
+  sendAdaToAddress(params: SendLovelaceParams): Promise<[Transaction | null, TxCandidate, Error | null]>;
 }
 
 const MAX_TRANSACTION_BUILDING_TRY_COUNT = 3
@@ -33,6 +36,8 @@ export class DefaultAmmTxCandidateBuilder implements AmmTxBuilder {
   private depositAmmTxBuilder: DepositAmmTxBuilder
 
   private poolTxBuilder: PoolCreationTxBuilder
+
+  private sendLovelaceTxBuilder: SendLovelaceTxBuilder
 
   constructor(
     txMath: TxMath,
@@ -48,6 +53,7 @@ export class DefaultAmmTxCandidateBuilder implements AmmTxBuilder {
     this.redeemAmmTxBuilder = new RedeemAmmTxBuilder(txMath, ammOuptuts, ammActions, inputSelector, R)
     this.depositAmmTxBuilder = new DepositAmmTxBuilder(txMath, ammOuptuts, ammActions, inputSelector, R)
     this.poolTxBuilder = new PoolCreationTxBuilder(txMath, ammOuptuts, ammActions, inputSelector, collateralSelector)
+    this.sendLovelaceTxBuilder = new SendLovelaceTxBuilder(txMath, inputSelector)
   }
 
   async swap(
@@ -81,7 +87,7 @@ export class DefaultAmmTxCandidateBuilder implements AmmTxBuilder {
       }
     } catch (e) {
       console.log(e)
-      return [null, swapTxCandidate, {...swapTxInfo, txFee: undefined}, e]
+      return [null, swapTxCandidate, { ...swapTxInfo, txFee: undefined }, e as Error]
     }
   }
 
@@ -117,7 +123,7 @@ export class DefaultAmmTxCandidateBuilder implements AmmTxBuilder {
       }
     } catch (e) {
       console.log(e)
-      return [null, redeemTxCandidate, {...redeemTxInfo, txFee: undefined}, e]
+      return [null, redeemTxCandidate, { ...redeemTxInfo, txFee: undefined }, e as Error]
     }
   }
 
@@ -153,7 +159,7 @@ export class DefaultAmmTxCandidateBuilder implements AmmTxBuilder {
       }
     } catch (e) {
       console.log(e)
-      return [null, depositTxCandidate, {...depositTxInfo, txFee: undefined}, e]
+      return [null, depositTxCandidate, { ...depositTxInfo, txFee: undefined }, e as Error]
     }
   }
 
@@ -194,7 +200,19 @@ export class DefaultAmmTxCandidateBuilder implements AmmTxBuilder {
       }
     } catch (e) {
       console.log(e)
-      return [null, poolCreationTxCandidate, {...poolCreationTxInfo, txFee: undefined}, e]
+      return [null, poolCreationTxCandidate, { ...poolCreationTxInfo, txFee: undefined }, e as Error]
+    }
+  }
+
+  async sendAdaToAddress(param: SendLovelaceParams, allInputs?: FullTxIn[]): Promise<[Transaction | null, TxCandidate, Error | null]> {
+    const newAllInputs = await (allInputs ? Promise.resolve(allInputs) : this.inputCollector.getInputs());
+    const [sendLovelaceTxCandidate] = await this.sendLovelaceTxBuilder.build(param, newAllInputs);
+    try {
+      const finalTx = this.txAsm.finalize(sendLovelaceTxCandidate);
+      return [finalTx, sendLovelaceTxCandidate, null];
+    } catch (e) {
+      console.log(e)
+      return [null, sendLovelaceTxCandidate, e as Error]
     }
   }
 }
