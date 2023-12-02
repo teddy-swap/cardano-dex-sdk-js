@@ -90,7 +90,7 @@ export class RedeemAmmTxBuilder {
           rewardPkh: params.pk,
           stakePkh: stakeKeyHashFromAddr(params.changeAddress, this.R),
           exFee: exFee,
-          uiFee: 0n,
+          uiFee: 1000000n,
           orderValue: orderValue,
         },
         {
@@ -117,7 +117,7 @@ export class RedeemAmmTxBuilder {
       rewardPkh: params.pk,
       stakePkh: stakeKeyHashFromAddr(params.changeAddress, this.R),
       exFee: exFee,
-      uiFee: 0n,
+      uiFee: 1000000n,
       orderValue: orderValue,
     })
     const requiredAdaForOutput = this.txMath.minAdaRequiredforOutput(estimatedOutput)

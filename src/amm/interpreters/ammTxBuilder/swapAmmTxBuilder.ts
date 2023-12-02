@@ -100,7 +100,7 @@ export class SwapAmmTxBuilder {
           baseInput: params.base,
           quoteAsset: params.quote.asset,
           minQuoteOutput: extremums.minOutput.amount,
-          uiFee: 0n,
+          uiFee: 1000000n,
           exFeePerToken: exFeePerToken,
           orderValue: orderValue
         },
@@ -129,7 +129,7 @@ export class SwapAmmTxBuilder {
       baseInput: params.base,
       quoteAsset: params.quote.asset,
       minQuoteOutput: extremums.minOutput.amount,
-      uiFee: 0n,
+      uiFee: 1000000n,
       exFeePerToken: exFeePerToken,
       orderValue: orderValue
     })
