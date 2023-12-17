@@ -11,6 +11,7 @@ import { AmmOutputs } from "../ammOutputs"
 import { DepositAmmTxBuilder, DepositParams, DepositTxInfo } from "./depositAmmTxBuilder"
 import { PoolCreationParams, PoolCreationTxBuilder, PoolCreationTxInfo } from "./poolCreationTxBuilder";
 import { RedeemAmmTxBuilder, RedeemParams, RedeemTxInfo } from "./redeemAmmTxBuilder"
+import { SendAssetParams, SendAssetTxBuilder } from "./sendAssetTxBuilder"
 import { SendLovelaceParams, SendLovelaceTxBuilder } from "./sendLovelaceTxBuilder"
 import { SwapAmmTxBuilder, SwapParams, SwapTxInfo } from "./swapAmmTxBuilder"
 
@@ -39,6 +40,8 @@ export class DefaultAmmTxCandidateBuilder implements AmmTxBuilder {
 
   private sendLovelaceTxBuilder: SendLovelaceTxBuilder
 
+  private sendAssetTxBuilder: SendAssetTxBuilder
+
   constructor(
     txMath: TxMath,
     ammOuptuts: AmmOutputs,
@@ -54,6 +57,7 @@ export class DefaultAmmTxCandidateBuilder implements AmmTxBuilder {
     this.depositAmmTxBuilder = new DepositAmmTxBuilder(txMath, ammOuptuts, ammActions, inputSelector, R)
     this.poolTxBuilder = new PoolCreationTxBuilder(txMath, ammOuptuts, ammActions, inputSelector, collateralSelector)
     this.sendLovelaceTxBuilder = new SendLovelaceTxBuilder(txMath, inputSelector)
+    this.sendAssetTxBuilder = new SendAssetTxBuilder(txMath, inputSelector)
   }
 
   async swap(
@@ -213,6 +217,18 @@ export class DefaultAmmTxCandidateBuilder implements AmmTxBuilder {
     } catch (e) {
       console.log(e)
       return [null, sendLovelaceTxCandidate, e as Error]
+    }
+  }
+
+  async sendAssetToAddress(param: SendAssetParams, allInputs?: FullTxIn[]): Promise<[Transaction | null, TxCandidate, Error | null]> {
+    const newAllInputs = await (allInputs ? Promise.resolve(allInputs) : this.inputCollector.getInputs());
+    const [sendAssetTxCandidate] = await this.sendAssetTxBuilder.build(param, newAllInputs);
+    try {
+      const finalTx = this.txAsm.finalize(sendAssetTxCandidate);
+      return [finalTx, sendAssetTxCandidate, null];
+    } catch (e) {
+      console.log(e)
+      return [null, sendAssetTxCandidate, e as Error]
     }
   }
 }

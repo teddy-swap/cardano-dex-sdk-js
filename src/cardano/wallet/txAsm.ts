@@ -29,7 +29,7 @@ class DefaultTxAsm implements TxAsm {
   finalize(candidate: TxCandidate, coefficient?: number): Transaction {
     const txBuilder = this.R.TransactionBuilder.new(this.getTxBuilderConfig(this.env.pparams, coefficient))
 
-    const userAddressKeyHash =  this.toKeyHash(candidate.changeAddr);
+    const userAddressKeyHash = this.toKeyHash(candidate.changeAddr);
     if (userAddressKeyHash) {
       txBuilder.add_required_signer(userAddressKeyHash)
     }
@@ -66,7 +66,6 @@ class DefaultTxAsm implements TxAsm {
     if (candidate.ttl) txBuilder.set_ttl(candidate.ttl)
 
     txBuilder.calc_script_data_hash(this.R.TxBuilderConstants.plutus_vasil_cost_models())
-
     return txBuilder.build_tx()
   }
 
